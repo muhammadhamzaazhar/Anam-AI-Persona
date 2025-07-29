@@ -22,6 +22,55 @@ function hideLoadingState() {
   }
 }
 
+// Add these functions to your existing script.js file
+
+async function sendTalkMessage() {
+  const messageInput = document.getElementById("message-input");
+  const sendButton = document.getElementById("send-message");
+
+  if (!anamClient || !messageInput) return;
+
+  const message = messageInput.value.trim();
+  if (!message) {
+    alert("Please enter a message");
+    return;
+  }
+
+  try {
+    sendButton.disabled = true;
+    sendButton.textContent = "Sending...";
+
+    // Send the message to the persona
+    await anamClient.talk(message);
+
+    // Clear the input
+    messageInput.value = "";
+  } catch (error) {
+    console.error("Failed to send message:", error);
+    alert("Failed to send message. Please try again.");
+  } finally {
+    sendButton.disabled = false;
+    sendButton.textContent = "Send Message";
+  }
+}
+
+function updateTalkControls(connected) {
+  const sendButton = document.getElementById("send-message");
+  const messageInput = document.getElementById("message-input");
+
+  if (sendButton) {
+    sendButton.disabled = !connected;
+    sendButton.style.opacity = connected ? "1" : "0.5";
+  }
+
+  if (messageInput) {
+    messageInput.disabled = !connected;
+    messageInput.placeholder = connected
+      ? "Type a message for Cara to respond to..."
+      : "Connect to start chatting...";
+  }
+}
+
 function updateChatHistory(messages) {
   if (!chatHistory) return;
   // Clear existing content
@@ -70,6 +119,7 @@ async function startChat() {
       hideLoadingState();
       startButton.disabled = true;
       stopButton.disabled = false;
+      updateTalkControls(true); // Enable talk controls
     });
 
     // Listen for MESSAGE_HISTORY_UPDATED to update chat history
@@ -77,9 +127,6 @@ async function startChat() {
       console.log("Conversation updated:", messages);
       updateChatHistory(messages);
     });
-
-    // Start streaming to the video element
-    await anamClient.streamToVideoElement("persona-video");
 
     // Add this event listener inside your startChat function after the MESSAGE_HISTORY_UPDATED listener
     // Listen for real-time transcription events
@@ -102,6 +149,9 @@ async function startChat() {
         }
       }
     });
+
+    // Start streaming to the video element
+    await anamClient.streamToVideoElement("persona-video");
 
     console.log("Chat started successfully!");
   } catch (error) {
@@ -132,3 +182,21 @@ function stopChat() {
 // Add event listeners
 startButton.addEventListener("click", startChat);
 stopButton.addEventListener("click", stopChat);
+document.addEventListener("DOMContentLoaded", () => {
+  const sendButton = document.getElementById("send-message");
+  const messageInput = document.getElementById("message-input");
+
+  if (sendButton) {
+    sendButton.addEventListener("click", sendTalkMessage);
+  }
+
+  if (messageInput) {
+    // Send message with Enter key (Shift+Enter for new line)
+    messageInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendTalkMessage();
+      }
+    });
+  }
+});
