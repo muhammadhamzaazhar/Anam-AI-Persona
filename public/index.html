@@ -33,6 +33,19 @@
         <p>Start a conversation to see your chat history</p>
       </div>
 
+      <!-- Add this to your HTML after the chat history -->
+      <div
+        id="live-transcript"
+        style="
+          margin-top: 10px;
+          padding: 10px;
+          background-color: #e6e0ff;
+          border-radius: 5px;
+        "
+      >
+        <strong>Persona Live:</strong> <span id="transcript-text"></span>
+      </div>
+
       <div style="margin-top: 20px">
         <button id="start-button">Start Chat</button>
         <button id="stop-button" disabled>Stop Chat</button>
