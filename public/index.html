@@ -3,92 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anam AI Assistant - Production App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <title>AI Avatar</title>
   </head>
   <body>
-    <div style="text-align: center; padding: 20px">
-      <h1>🤖 Chat with Cara</h1>
-
-      <div id="loading-message" style="display: none">Loading...</div>
-
-      <video
-        id="persona-video"
-        autoplay
-        playsinline
-        style="max-width: 100%; border-radius: 8px"
-      ></video>
-
-      <!-- Chat History Panel -->
-      <div
-        id="chat-history"
-        style="
-          margin-top: 20px;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          max-height: 200px;
-          overflow-y: auto;
-        "
-      >
-        <p>Start a conversation to see your chat history</p>
+    <div class="container">
+      <div class="left-panel">
+        <video id="persona-video" autoplay playsinline></video>
       </div>
+      <div class="right-panel">
+        <div id="chat-history">
+          <p>Start a conversation to see your chat history</p>
+        </div>
 
-      <!-- Live Transcript -->
-      <div
-        id="live-transcript"
-        style="
-          margin-top: 10px;
-          padding: 10px;
-          background-color: #e6e0ff;
-          border-radius: 5px;
-        "
-      >
-        <strong>Persona Live:</strong> <span id="transcript-text"></span>
-      </div>
-
-      <!-- Talk Command Panel -->
-      <div
-        style="
-          margin-top: 20px;
-          padding: 15px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-        "
-      >
-        <h3 style="margin: 0 0 10px 0">💬 Send Message</h3>
-        <div style="display: flex; gap: 10px; align-items: flex-end">
+        <div class="input-section">
+          <h3>💬 Send Message</h3>
           <textarea
             id="message-input"
             placeholder="Type a message for Cara to respond to..."
             rows="3"
-            style="
-              flex: 1;
-              padding: 10px;
-              border: 1px solid #ddd;
-              border-radius: 4px;
-              font-family: inherit;
-            "
           ></textarea>
-          <button
-            id="send-message"
-            disabled
-            style="
-              padding: 10px 20px;
-              border: none;
-              border-radius: 4px;
-              background: #4caf50;
-              color: white;
-              cursor: pointer;
-            "
-          >
-            Send Message
-          </button>
+          <button id="send-message" disabled>Send Message</button>
         </div>
-      </div>
-
-      <div style="margin-top: 20px">
-        <button id="start-button">Start Chat</button>
-        <button id="stop-button" disabled>Stop Chat</button>
+        <div class="control-buttons">
+          <button id="start-button">Start Chat</button>
+          <button id="stop-button" disabled>Stop Chat</button>
+        </div>
       </div>
     </div>
 
