@@ -7,18 +7,38 @@
   </head>
   <body>
     <div style="text-align: center; padding: 20px">
-      <h1>Chat with Cara</h1>
+      <h1>🤖 Chat with Cara</h1>
+
+      <div id="loading-message" style="display: none">Loading...</div>
+
       <video
         id="persona-video"
         autoplay
         playsinline
         style="max-width: 100%; border-radius: 8px"
       ></video>
+
+      <!-- Chat History Panel -->
+      <div
+        id="chat-history"
+        style="
+          margin-top: 20px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          max-height: 200px;
+          overflow-y: auto;
+        "
+      >
+        <p>Start a conversation to see your chat history</p>
+      </div>
+
       <div style="margin-top: 20px">
         <button id="start-button">Start Chat</button>
         <button id="stop-button" disabled>Stop Chat</button>
       </div>
     </div>
+
     <script type="module" src="script.js"></script>
   </body>
 </html>
