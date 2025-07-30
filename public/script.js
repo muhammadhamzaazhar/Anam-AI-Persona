@@ -48,7 +48,7 @@ function updateTalkControls(connected) {
   if (messageInput) {
     messageInput.disabled = !connected;
     messageInput.placeholder = connected
-      ? "Type a message for Cara to respond to..."
+      ? "Type a message..."
       : "Connect to start chatting...";
   }
 }
@@ -95,6 +95,7 @@ async function startChat() {
 
     anamClient.addListener(AnamEvent.SESSION_READY, () => {
       console.log("Session is ready!");
+      anamClient.muteInputAudio();
       startButton.disabled = true;
       stopButton.disabled = false;
       updateTalkControls(true);
