@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 
 require("dotenv").config();
@@ -6,6 +7,10 @@ require("dotenv").config();
 app.use(express.json());
 app.use(express.static("public"));
 port = 8000;
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 app.post("/api/session-token", async (req, res) => {
   try {
@@ -59,3 +64,5 @@ app.post("/api/session-token", async (req, res) => {
 app.listen(port, "0.0.0.0", () => {
   console.log("Server running on port: ", port);
 });
+
+module.exports = app;
