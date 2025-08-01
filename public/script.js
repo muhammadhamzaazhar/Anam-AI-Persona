@@ -12,7 +12,10 @@ async function sendTalkMessage() {
   const messageInput = document.getElementById("message-input");
   const sendButton = document.getElementById("send-message");
 
-  if (!anamClient || !messageInput) return;
+  if (!anamClient || !messageInput) {
+    console.error("Anam client or message input not available");
+    return;
+  }
 
   const message = messageInput.value.trim();
   if (!message) {
@@ -24,9 +27,15 @@ async function sendTalkMessage() {
     sendButton.disabled = true;
     sendButton.textContent = "Sending...";
 
+    console.log("Sending message:", message);
+    
+    // Add user message to chat history immediately
+    addMessageToChatHistory("user", message);
+    
     await anamClient.talk(message);
 
     messageInput.value = "";
+    console.log("Message sent successfully");
   } catch (error) {
     console.error("Failed to send message:", error);
     alert("Failed to send message. Please try again.");
@@ -54,33 +63,84 @@ function updateTalkControls(connected) {
 }
 
 function updateChatHistory(messages) {
-  if (!chatHistory) return;
+  console.log("updateChatHistory called with:", messages);
+  
+  if (!chatHistory) {
+    console.error("chatHistory element not found");
+    return;
+  }
 
   chatHistory.innerHTML = "";
-  if (messages.length === 0) {
+  
+  if (!messages || messages.length === 0) {
     chatHistory.innerHTML =
       "<p>Start a conversation to see your chat history</p>";
     return;
   }
 
-  messages.forEach((message) => {
+  messages.forEach((message, index) => {
+    console.log(`Processing message ${index}:`, message);
+    
     const messageDiv = document.createElement("div");
     messageDiv.style.marginBottom = "10px";
     messageDiv.style.padding = "5px";
     messageDiv.style.borderRadius = "5px";
+    
     if (message.role === "user") {
       messageDiv.className = "chat-message user";
-      messageDiv.innerHTML = `<strong>You:</strong> ${message.content}`;
-    } else {
+      messageDiv.innerHTML = `<strong>You:</strong> ${message.content || message.text || ''}`;
+    } else if (message.role === "persona" || message.role === "assistant") {
       messageDiv.className = "chat-message ai";
-      messageDiv.innerHTML = `<strong>Cara:</strong> ${message.content}`;
+      messageDiv.innerHTML = `<strong>Cara:</strong> ${message.content || message.text || ''}`;
+    } else {
+      // Handle other roles or unknown message types
+      messageDiv.className = "chat-message ai";
+      messageDiv.innerHTML = `<strong>System:</strong> ${message.content || message.text || JSON.stringify(message)}`;
     }
 
     chatHistory.appendChild(messageDiv);
   });
 
   chatHistory.scrollTop = chatHistory.scrollHeight;
+  console.log("Chat history updated, total messages:", messages.length);
 }
+
+// Helper function to manually add a message to chat history
+function addMessageToChatHistory(role, content) {
+  if (!chatHistory) return;
+  
+  const messageDiv = document.createElement("div");
+  messageDiv.style.marginBottom = "10px";
+  messageDiv.style.padding = "5px";
+  messageDiv.style.borderRadius = "5px";
+  
+  if (role === "user") {
+    messageDiv.className = "chat-message user";
+    messageDiv.innerHTML = `<strong>You:</strong> ${content}`;
+  } else {
+    messageDiv.className = "chat-message ai";
+    messageDiv.innerHTML = `<strong>Cara:</strong> ${content}`;
+  }
+
+  chatHistory.appendChild(messageDiv);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+}
+
+// Test function to manually test chat history (can be called from browser console)
+function testChatHistory() {
+  const testMessages = [
+    { role: "user", content: "Hello, how are you?" },
+    { role: "ai", content: "Hi! I'm doing great, thanks for asking. How can I help you today?" },
+    { role: "user", content: "Can you tell me about yourself?" },
+    { role: "ai", content: "I'm Cara, an AI assistant designed to help you with various tasks and have meaningful conversations!" }
+  ];
+  
+  console.log("Testing chat history with sample messages");
+  updateChatHistory(testMessages);
+}
+
+// Make test function available globally
+window.testChatHistory = testChatHistory;
 
 async function startChat() {
   try {
@@ -103,14 +163,20 @@ async function startChat() {
 
     anamClient.addListener(AnamEvent.MESSAGE_HISTORY_UPDATED, (messages) => {
       console.log("Conversation updated:", messages);
-      updateChatHistory(messages);
+      console.log("Message history event received:", messages);
+      if (Array.isArray(messages)) {
+        updateChatHistory(messages);
+      } else {
+        console.error("Messages is not an array:", messages);
+        updateChatHistory([]);
+      }
     });
 
     anamClient.addListener(AnamEvent.MESSAGE_STREAM_EVENT_RECEIVED, (event) => {
       const liveTranscript = document.getElementById("live-transcript");
       const transcriptText = document.getElementById("transcript-text");
 
-      console.log("event", event);
+      console.log("Stream event received:", event);
 
       if (event.role === "persona") {
         if (liveTranscript && transcriptText) {
@@ -121,6 +187,19 @@ async function startChat() {
         if (liveTranscript && transcriptText) {
           transcriptText.textContent = "";
         }
+      }
+    });
+
+    // Add listener for when a message is sent
+    anamClient.addListener(AnamEvent.MESSAGE_SENT, (message) => {
+      console.log("Message sent:", message);
+    });
+
+    // Add listener for when a message is received
+    anamClient.addListener(AnamEvent.MESSAGE_RECEIVED, (message) => {
+      console.log("Message received:", message);
+      if (message && message.content) {
+        addMessageToChatHistory("ai", message.content);
       }
     });
 
