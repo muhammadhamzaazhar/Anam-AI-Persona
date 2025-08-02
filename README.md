@@ -2,7 +2,12 @@
 
 A demo application that integrates Anam AI’s real-time digital personas to create engaging, human-like conversational experiences. The showcased persona acts as a digital clone: whatever you type or say through your microphone is echoed back word-for-word in natural speech and synchronized facial animation, demonstrating Anam’s sub-second latency and photorealistic expression technology.
 
-<img width="1217" height="521" alt="image" src="https://github.com/user-attachments/assets/7a5b4d89-9733-478c-bca3-a97ccddc9cce" />
+<img width="1217" height="521" alt="image" src="https://github.com/user-attachments/assets/7a5b4d89-9733-478c-bca3-a97ccddc9cce" /><br>
+> **📢 Note:** `master` branch reflects the **old UI**.  
+> For the **updated user interface**, please visit the [`new-ui-redesign branch`](https://github.com/muhammadhamzaazhar/Anam-AI-Persona/tree/new-ui-redesign), which includes a refreshed layout and enhanced interaction flow.
+
+A demo application that integrates Anam AI’s real-time digital personas to create engaging, human-like conversational experiences...
+
 
 ## 🚀 Features
 
