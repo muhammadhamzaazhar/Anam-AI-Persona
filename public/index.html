@@ -3,34 +3,278 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Persona Chat | Intelligent Conversation Platform</title>
     <link rel="stylesheet" href="styles.css" />
-    <title>AI Avatar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <meta
+      name="description"
+      content="Experience next-generation AI conversations with intelligent persona chat platform"
+    />
   </head>
   <body>
-    <div class="container">
-      <div class="left-panel">
-        <video id="persona-video" autoplay playsinline></video>
+    <div class="animated-bg">
+      <div class="bg-gradient"></div>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+        <div class="shape shape-7"></div>
       </div>
-      <div class="right-panel">
-        <div id="chat-history">
-          <p>Start a conversation to see your chat history</p>
-        </div>
-
-        <div class="input-section">
-          <h3>💬 Send Message</h3>
-          <textarea
-            id="message-input"
-            placeholder="Type a message for Cara to respond to..."
-            rows="3"
-          ></textarea>
-          <button id="send-message" disabled>Send Message</button>
-        </div>
-        <div class="control-buttons">
-          <button id="start-button">Start Chat</button>
-          <button id="stop-button" disabled>Stop Chat</button>
-        </div>
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
       </div>
+      <div class="glow-orb glow-orb-1"></div>
+      <div class="glow-orb glow-orb-2"></div>
+      <div class="glow-orb glow-orb-3"></div>
     </div>
+
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <i class="fas fa-robot brand-icon"></i>
+          <span class="brand-text">AI Persona</span>
+        </div>
+        <div class="nav-menu">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </div>
+        <div class="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content" id="home">
+      <div class="container">
+        <section class="hero-section">
+          <div class="hero-content">
+            <h1 class="hero-title">
+              <span class="gradient-text">AI Persona Chat</span>
+              <span class="subtitle">Intelligent Conversations Redefined</span>
+            </h1>
+            <p class="hero-description">
+              Experience the future of AI interaction with our advanced persona
+              chat system. Engage in natural, intelligent conversations that
+              adapt to your needs.
+            </p>
+          </div>
+        </section>
+
+        <section class="chat-interface">
+          <div class="interface-grid">
+            <div class="video-panel glass-panel">
+              <div class="panel-header">
+                <h2 class="panel-title">
+                  <i class="fas fa-video"></i>
+                  AI Persona
+                </h2>
+                <div class="status-indicator">
+                  <span class="status-dot offline" id="status-dot"></span>
+                  <span class="status-text" id="status-text">Offline</span>
+                </div>
+              </div>
+              <div class="video-container">
+                <video
+                  id="persona-video"
+                  class="persona-video"
+                  autoplay
+                  playsinline
+                >
+                  <source src="" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay" id="video-overlay">
+                  <div class="overlay-content">
+                    <i class="fas fa-play-circle play-icon"></i>
+                    <p>Click "Start Chat" to begin conversation</p>
+                  </div>
+                </div>
+              </div>
+              <div class="control-buttons">
+                <button id="start-button" class="btn btn-success">
+                  <i class="fas fa-play"></i>
+                  Start Chat
+                </button>
+                <button id="stop-button" class="btn btn-danger" disabled>
+                  <i class="fas fa-stop"></i>
+                  Stop Chat
+                </button>
+              </div>
+            </div>
+
+            <div class="chat-panel glass-panel">
+              <div class="panel-header">
+                <h2 class="panel-title">
+                  <i class="fas fa-comments"></i>
+                  Conversation
+                </h2>
+                <button class="clear-chat-btn" id="clear-chat">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+
+              <div class="chat-history" id="chat-history">
+                <div class="welcome-message">
+                  <div class="welcome-icon">
+                    <i class="fas fa-robot"></i>
+                  </div>
+                  <h4>Welcome to AI Persona Chat</h4>
+                  <p>
+                    Start a conversation to see your chat history appear here.
+                    Your AI companion is ready to assist you!
+                  </p>
+                </div>
+              </div>
+
+              <div class="input-section">
+                <div class="input-container">
+                  <textarea
+                    id="message-input"
+                    placeholder="Type your message here..."
+                    rows="3"
+                    disabled
+                  ></textarea>
+                  <button
+                    id="send-message"
+                    class="btn btn-primary send-btn"
+                    disabled
+                  >
+                    <i class="fas fa-paper-plane"></i>
+                  </button>
+                </div>
+                <div class="input-footer">
+                  <small class="input-hint">
+                    <i class="fas fa-lightbulb"></i>
+                    Press Ctrl+Enter to send
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="features-section" id="features">
+          <div class="features-header">
+            <h2 class="section-title">Powerful Features</h2>
+            <p class="section-description">
+              Discover what makes our AI persona chat unique
+            </p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card glass-panel">
+              <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3>Intelligent AI</h3>
+              <p>
+                Advanced natural language processing for meaningful
+                conversations
+              </p>
+            </div>
+            <div class="feature-card glass-panel">
+              <div class="feature-icon">
+                <i class="fas fa-video"></i>
+              </div>
+              <h3>Video Integration</h3>
+              <p>Real-time video communication with AI personas</p>
+            </div>
+            <div class="feature-card glass-panel">
+              <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <h3>24/7 Available</h3>
+              <p>Access your AI companion anytime, anywhere</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-brand">
+            <i class="fas fa-robot"></i>
+            <span>AI Persona</span>
+          </div>
+          <p class="footer-description">
+            Revolutionizing human-AI interaction through intelligent
+            conversation platforms.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">API Docs</a></li>
+            <li><a href="#">Integrations</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> AI Persona. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script type="module" src="script.js"></script>
   </body>
