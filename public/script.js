@@ -109,7 +109,9 @@ async function startChat() {
     });
     const { sessionToken } = await response.json();
 
-    anamClient = createClient(sessionToken);
+    anamClient = createClient(sessionToken,{
+      disableInputAudio: true 
+    });
 
     anamClient.addListener(AnamEvent.CONNECTION_ESTABLISHED, () => {
       console.log("Connection established");
